@@ -108,15 +108,15 @@ class MyArrayListTest {
         }
     }
 
-//    @Test
-//    void isAbleToAdd1000ItemsToMiddle(){
-//        for (int i = 0; i < 1000; i++) {
-//            int middle = (int)(Math.ceil((double) arrayList.size() / 2));
-//            arrayList.add(i, middle);
-//        }
-//        assertEquals(1000, arrayList.size());
-//        assertEquals(999, arrayList.get(500));
-//    }
+    @Test
+    void isAbleToAdd1000ItemsToMiddle(){
+        for (int i = 0; i < 1000; i++) {
+            int middle = (int)(Math.ceil((double) arrayList.size() / 2));
+            arrayList.add(i, middle);
+        }
+        assertEquals(1000, arrayList.size());
+        assertEquals(999, arrayList.get(500));
+    }
 
     @Test
     void isAbleToAdd1000ItemsToBeginning(){
@@ -128,37 +128,28 @@ class MyArrayListTest {
         assertEquals(0, arrayList.get(999));
     }
 
-//    @Test
-//    void removeFirstItemFromArray(){
-//        for (int i = 0; i < 4; i++) {
-//            arrayList.add(i);
-//        }
-//        arrayList.remove(0);
-//        assertEquals(1, arrayList.get(0));
-//        assertEquals(2, arrayList.get(1));
-//        assertEquals(3, arrayList.get(2));
-//        assertEquals(2, arrayList.size());
-//    }
+    @Test
+    void removeFirstItemFromArray(){
+        for (int i = 0; i < 4; i++) {
+            arrayList.add(i);
+        }
+        arrayList.remove(0);
+        assertEquals(1, arrayList.get(0));
+        assertEquals(2, arrayList.get(1));
+        assertEquals(3, arrayList.get(2));
+        assertEquals(3, arrayList.size());
+    }
 
     @Test
     void removesMiddleItemFromArray(){
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             arrayList.add(i);
         }
-        arrayList.remove(1);
+        arrayList.remove(2);
         assertEquals(0, arrayList.get(0));
-        assertEquals(2, arrayList.get(1));
-        assertEquals(2, arrayList.size());
+        assertEquals(1, arrayList.get(1));
+        assertEquals(3, arrayList.get(2));
+        assertEquals(4, arrayList.get(3));
+        assertEquals(4, arrayList.size());
     }
-
-//    @Test
-//    void removesLastItemFromArray(){
-//        for (int i = 0; i < 3; i++) {
-//            arrayList.add(i);
-//        }
-//        arrayList.remove(arrayList.size() - 1);
-//        assertEquals(2, arrayList.size());
-//        assertEquals(0, arrayList.get(0));
-//        assertEquals(1, arrayList.get(1));
-//    }
 }

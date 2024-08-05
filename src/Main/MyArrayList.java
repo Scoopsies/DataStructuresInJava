@@ -34,8 +34,7 @@ public class MyArrayList implements List{
     @Override
     public void remove(int index) {
         handleOutOfBounds(index, size - 1);
-
-        System.arraycopy(array, index + 1, array, index, size - index - 1);
+        System.arraycopy(array, index + 1, array, index, size - 1);
         size--;
     }
 
