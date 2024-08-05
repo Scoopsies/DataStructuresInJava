@@ -54,6 +54,14 @@ class MyArrayListTest {
     }
 
     @Test
+    void addThrowsErrorIfOutOfBounds(){
+        arrayList.add(0);
+        arrayList.add(1);
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.add(0, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.add(0, 3));
+    }
+
+    @Test
     void addAddsItemsToBackOfArray(){
         arrayList.add(0);
         assertEquals(0, arrayList.get(0));
@@ -112,13 +120,14 @@ class MyArrayListTest {
         arrayList.add(0);
         arrayList.remove(0);
         assertEquals(0, arrayList.size());
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.get(0));
     }
 
     @Test
     void remove1RemovesSecondItemFromArray(){
-        arrayList.add(0);
-        arrayList.add(1);
-        arrayList.add(2);
+        for (int i = 0; i < 3; i++) {
+            arrayList.add(i);
+        }
         arrayList.remove(1);
         assertEquals(2, arrayList.size());
         assertEquals(2, arrayList.get(1));

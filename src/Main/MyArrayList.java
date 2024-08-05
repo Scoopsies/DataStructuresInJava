@@ -12,24 +12,27 @@ public class MyArrayList implements List{
 
     @Override
     public void add(int i) {
-        size++;
-        if (size > memoryAllocated){
+        if (size + 1 > memoryAllocated){
             memoryAllocated += DEFAULT_MEMORY_ALLOCATION;
-            var newArray = new int[memoryAllocated];
-            System.arraycopy(array, 0, newArray, 0, 0);
-            array = newArray;
         }
-        array[size - 1] = i;
+        var newArray = new int[memoryAllocated];
+        System.arraycopy(array, 0, newArray, 0, 0);
+        array = newArray;
+        array[size] = i;
+        size++;
     }
 
     @Override
     public void add(int i, int index) {
-        size++;
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+size+"]");
+        }
         memoryAllocated++;
-        int[] newArray = new int[array.length + 1];
-        newArray[index] = i;
+        int[] newArray = new int[memoryAllocated];
         System.arraycopy(array, index, newArray, index + 1, array.length - index);
+        newArray[index] = i;
         array = newArray;
+        size++;
     }
 
     @Override
@@ -42,11 +45,11 @@ public class MyArrayList implements List{
         if (index > size - 1 || index < 0) {
             throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+(size - 1)+"]");
         }
-        size--;
         var newArray = new int[array.length - 1];
         System.arraycopy(array, 0, newArray, 0, index);
         System.arraycopy(array, index + 1, newArray, index, array.length - index - 1);
         array = newArray;
+        size--;
     }
 
     @Override
