@@ -43,6 +43,14 @@ class MyArrayListTest {
         arrayList.add(0);
         arrayList.add(1);
         assertThrows(IndexOutOfBoundsException.class, () -> arrayList.get(2));
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.get(-1));
+    }
+
+    @Test
+    void removeThrowsErrorIfOutOfBounds(){
+        arrayList.add(0);
+        arrayList.add(1);
+        assertThrows(IndexOutOfBoundsException.class, () -> arrayList.remove(2));
     }
 
     @Test

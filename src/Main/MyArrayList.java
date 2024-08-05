@@ -39,6 +39,9 @@ public class MyArrayList implements List{
 
     @Override
     public void remove(int index) {
+        if (index > size - 1 || index < 0) {
+            throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+(size - 1)+"]");
+        }
         size--;
         var newArray = new int[array.length - 1];
         System.arraycopy(array, 0, newArray, 0, index);
