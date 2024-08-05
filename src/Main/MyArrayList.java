@@ -12,26 +12,17 @@ public class MyArrayList implements List{
 
     @Override
     public void add(int i) {
-        if (size + 1 > memoryAllocated){
-            memoryAllocated += DEFAULT_MEMORY_ALLOCATION;
-        }
-        var newArray = new int[memoryAllocated];
-        System.arraycopy(array, 0, newArray, 0, 0);
-        array = newArray;
+        handleMemoryAllocation();
         array[size] = i;
         size++;
     }
 
     @Override
     public void add(int i, int index) {
-        if (index > size || index < 0) {
-            throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+size+"]");
-        }
-        memoryAllocated++;
-        int[] newArray = new int[memoryAllocated];
-        System.arraycopy(array, index, newArray, index + 1, array.length - index);
-        newArray[index] = i;
-        array = newArray;
+        handleOutOfBounds(index, size);
+        handleMemoryAllocation();
+        System.arraycopy(array, index, array, index + 1 ,array.length - index - 1);
+        array[index] = i;
         size++;
     }
 
@@ -42,22 +33,31 @@ public class MyArrayList implements List{
 
     @Override
     public void remove(int index) {
-        if (index > size - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+(size - 1)+"]");
-        }
-        var newArray = new int[array.length - 1];
-        System.arraycopy(array, 0, newArray, 0, index);
-        System.arraycopy(array, index + 1, newArray, index, array.length - index - 1);
-        array = newArray;
+        handleOutOfBounds(index, size - 1);
+
+        System.arraycopy(array, index + 1, array, index, size - index - 1);
         size--;
     }
 
     @Override
     public int get(int index) {
-        if (index > size - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+(size - 1)+"]");
-        }
+        handleOutOfBounds(index, size - 1);
         return array[index];
+    }
+
+    private void handleOutOfBounds(int index, int size){
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+size+"]");
+        }
+    }
+
+    private void handleMemoryAllocation() {
+        if (size + 1 > memoryAllocated){
+            memoryAllocated += DEFAULT_MEMORY_ALLOCATION;
+            var newArray = new int[memoryAllocated];
+            System.arraycopy(array, 0, newArray, 0, array.length);
+            array = newArray;
+        }
     }
 
 }
