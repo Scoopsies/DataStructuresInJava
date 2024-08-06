@@ -62,4 +62,20 @@ public class MyLinkedListTest {
         assertEquals(0, linkedList.get(0));
     }
 
+    @Test
+    void getReturnsMiddle() {
+        for (int i = 0; i < 5; i++) {
+            linkedList.add(i);
+        }
+        assertEquals(2, linkedList.get(2));
+    }
+
+    @Test
+    void getReturnsLast() {
+        for (int i = 0; i < 5; i++) {
+            linkedList.add(i);
+        }
+        assertEquals(4, linkedList.get(4));
+    }
+
 }

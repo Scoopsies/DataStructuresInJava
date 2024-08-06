@@ -51,11 +51,10 @@ public class MyLinkedList implements List{
 
     @Override
     public int get(int index) {
-        if (index == 0){
-            return first.item;
+        var result = first;
+        for (int i = 0; i < index; i++) {
+            result = result.next;
         }
-        else {
-            return last.item;
-        }
+        return result.item;
     }
 }
