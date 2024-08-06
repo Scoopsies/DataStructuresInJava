@@ -48,7 +48,7 @@ public class MyArrayList implements List{
 
     private void handleMemoryAllocation() {
         if (size + 1 > memoryAllocated){
-            memoryAllocated += DEFAULT_MEMORY_ALLOCATION;
+            memoryAllocated *= 2;
             var newArray = new int[memoryAllocated];
             System.arraycopy(array, 0, newArray, 0, array.length);
             array = newArray;
