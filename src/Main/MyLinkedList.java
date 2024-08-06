@@ -33,7 +33,7 @@ public class MyLinkedList implements List{
 
     @Override
     public void add(int i, int index) {
-        handleOutOfBounds(index, size + 1);
+        List.handleOutOfBounds(index, size + 1);
 
         if (index == 0) {
             addToFront(i);
@@ -87,7 +87,7 @@ public class MyLinkedList implements List{
     }
 
     private void removeNth(int index) {
-        handleOutOfBounds(index, size);
+        List.handleOutOfBounds(index, size);
         var node = getNode(index);
         var prevNode = node.prev;
         var nextNode = node.next;
@@ -109,15 +109,9 @@ public class MyLinkedList implements List{
 
     @Override
     public int get(int index) {
-        handleOutOfBounds(index, size);
+        List.handleOutOfBounds(index, size);
         var node = getNode(index);
         return node.item;
-    }
-
-    private void handleOutOfBounds(int index, int size) {
-        if (index >= size || index < 0) {
-            throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+(size - 1)+"]");
-        }
     }
 
     private Node getNode(int index) {
