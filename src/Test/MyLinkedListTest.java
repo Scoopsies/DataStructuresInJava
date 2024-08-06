@@ -46,14 +46,38 @@ public class MyLinkedListTest {
     }
 
     @Test
-    void addsToBeginning(){
-        addXTimes(10,0);
+    void addsToBeginning1000Times(){
+        for (int i = 0; i < 1000; i++) {
+            linkedList.add(i, 0);
+        }
 
         var index = 0;
-        for (int i = 9; i >= 0; i--) {
+        for (int i = 999; i >= 0; i--) {
             assertEquals(i, linkedList.get(index));
             index++;
         }
+    }
+
+    @Test
+    void addsToEndWithIndex(){
+        addXTimes(5);
+        assertEquals(5, linkedList.size());
+        linkedList.add(5, 5);
+        assertEquals(5, linkedList.get(5));
+    }
+
+    @Test
+    void sizeIncreasesWhenAddingItemsToFront() {
+        addXTimes(10);
+        linkedList.add(20, 0);
+        assertEquals(11, linkedList.size());
+    }
+
+    @Test
+    void sizeIncreasesWhenAddingItemsToMiddle() {
+        addXTimes(10);
+        linkedList.add(20, 5);
+        assertEquals(11, linkedList.size());
     }
 
     @Test
@@ -62,13 +86,6 @@ public class MyLinkedListTest {
             linkedList.add(i);
             assertEquals(i + 1, linkedList.size());
         }
-    }
-
-    @Test
-    void sizeIncreasesWhenAddingItemsToMiddle() {
-        addXTimes(10);
-        linkedList.add(20, 5);
-        assertEquals(11, linkedList.size());
     }
 
     @Test
@@ -90,18 +107,18 @@ public class MyLinkedListTest {
     }
 
     @Test
+    void removesFromFront() {
+        addXTimes(5);
+        linkedList.remove(0);
+        assertEquals(1, linkedList.get(0));
+    }
+
+    @Test
     void removesFromMiddle() {
         addXTimes(10);
         assertEquals(3, linkedList.get(3));
         linkedList.remove(3);
         assertEquals(4, linkedList.get(3));
-    }
-
-    @Test
-    void removesFromFront() {
-        addXTimes(5);
-        linkedList.remove(0);
-        assertEquals(1, linkedList.get(0));
     }
 
     @Test
@@ -139,11 +156,4 @@ public class MyLinkedListTest {
             linkedList.add(i);
         }
     }
-
-    private void addXTimes(int x, int index) {
-        for (int i = 0; i < 10; i++) {
-            linkedList.add(i, index);
-        }
-    }
-
 }

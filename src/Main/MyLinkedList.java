@@ -23,13 +23,10 @@ public class MyLinkedList implements List{
     @Override
     public void add(int i) {
         if (first == null) {
-            first = new Node(null, i, null);
-            last = first;
+            addToFront(i);
         }
         else {
-            Node newNode = new Node(last, i, null);
-            last.next = newNode;
-            last = newNode;
+            addToEnd(i);
         }
         size++;
     }
@@ -37,19 +34,39 @@ public class MyLinkedList implements List{
     @Override
     public void add(int i, int index) {
         handleOutOfBounds(index, size + 1);
-        var nodeShiftingForward = getNode(index);
+
         if (index == 0) {
-            var newNode = new Node(null, i, nodeShiftingForward);
-            newNode.next = nodeShiftingForward;
-            first = newNode;
-        }
-        else {
-            var newNode = new Node(nodeShiftingForward.prev, i, nodeShiftingForward);
-            nodeShiftingForward.prev = newNode;
-            var prevNode = getNode(index - 1);
-            prevNode.next = newNode;
+            addToFront(i);
+        } else if (index == size) {
+            addToEnd(i);
+        } else {
+            addToNth(i, index);
         }
         size++;
+    }
+
+    private void addToFront(int i) {
+        var nodeShiftingForward = first;
+        var newNode = new Node(null, i, nodeShiftingForward);
+        newNode.next = nodeShiftingForward;
+        first = newNode;
+        if (last == null) {
+            last = first;
+        }
+    }
+
+    private void addToEnd(int i) {
+        Node newNode = new Node(last, i, null);
+        last.next = newNode;
+        last = newNode;
+    }
+
+    private void addToNth(int i, int index) {
+        var nodeShiftingForward = getNode(index);
+        var prevNode = nodeShiftingForward.prev;
+        var newNode = new Node(prevNode, i, nodeShiftingForward);
+        nodeShiftingForward.prev = newNode;
+        prevNode.next = newNode;
     }
 
     @Override
