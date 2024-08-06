@@ -19,7 +19,7 @@ public class MyArrayList implements List{
 
     @Override
     public void add(int i, int index) {
-        handleOutOfBounds(index, size);
+        List.handleOutOfBounds(index, size + 1);
         handleMemoryAllocation();
         System.arraycopy(array, index, array, index + 1 ,array.length - index - 1);
         array[index] = i;
@@ -33,21 +33,17 @@ public class MyArrayList implements List{
 
     @Override
     public void remove(int index) {
-        handleOutOfBounds(index, size - 1);
-        System.arraycopy(array, index + 1, array, index, size - 1);
+        List.handleOutOfBounds(index, size);
+        if (index < size - 1) {
+            System.arraycopy(array, index + 1, array, index, size - index - 1);
+        }
         size--;
     }
 
     @Override
     public int get(int index) {
-        handleOutOfBounds(index, size - 1);
+        List.handleOutOfBounds(index, size);
         return array[index];
-    }
-
-    private void handleOutOfBounds(int index, int size){
-        if (index > size || index < 0) {
-            throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+size+"]");
-        }
     }
 
     private void handleMemoryAllocation() {
