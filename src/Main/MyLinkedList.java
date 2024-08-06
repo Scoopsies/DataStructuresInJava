@@ -36,7 +36,11 @@ public class MyLinkedList implements List{
 
     @Override
     public void add(int i, int index) {
-
+        var prevNode = getNode(index - 1);
+        var node = getNode(index);
+        var newNode = new Node(node.prev, i, node);
+        prevNode.next = newNode;
+        node.prev = newNode;
     }
 
     @Override
@@ -51,10 +55,15 @@ public class MyLinkedList implements List{
 
     @Override
     public int get(int index) {
+        var node = getNode(index);
+        return node.item;
+    }
+
+    private Node getNode(int index) {
         var result = first;
         for (int i = 0; i < index; i++) {
             result = result.next;
         }
-        return result.item;
+        return result;
     }
 }

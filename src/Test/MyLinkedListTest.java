@@ -40,6 +40,17 @@ public class MyLinkedListTest {
     }
 
     @Test
+    void addsToTheMiddle(){
+        for (int i = 0; i < 5; i++) {
+            linkedList.add(i);
+        }
+        assertEquals(3, linkedList.get(3));
+
+        linkedList.add(20, 3);
+        assertEquals(20, linkedList.get(3));
+    }
+
+    @Test
     void sizeIncreasesWhenAddingItems() {
         for (int i = 0; i < 10; i++) {
             linkedList.add(i);
@@ -48,14 +59,14 @@ public class MyLinkedListTest {
     }
 
     @Test
-    void sizeDecreasesWhenAddingItems() {
+    void sizeDecreasesWhenRemovingItems() {
         for (int i = 0; i < 10; i++) {
             linkedList.add(i);
         }
     }
 
     @Test
-    void getReturnsFirst() {
+    void getReturnsFirstItem() {
         for (int i = 0; i < 5; i++) {
             linkedList.add(i);
         }
@@ -63,7 +74,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    void getReturnsMiddle() {
+    void getReturnsMiddleItem() {
         for (int i = 0; i < 5; i++) {
             linkedList.add(i);
         }
@@ -71,11 +82,10 @@ public class MyLinkedListTest {
     }
 
     @Test
-    void getReturnsLast() {
+    void getReturnsLastItem() {
         for (int i = 0; i < 5; i++) {
             linkedList.add(i);
         }
         assertEquals(4, linkedList.get(4));
     }
-
 }
