@@ -36,21 +36,20 @@ public class MyLinkedList implements List{
 
     @Override
     public void add(int i, int index) {
+        handleOutOfBounds(index, size + 1);
         var nodeShiftingForward = getNode(index);
-        var newNode = new Node(nodeShiftingForward.prev, i, nodeShiftingForward);
-        nodeShiftingForward.prev = newNode;
-        handlePrevNode(newNode, index);
-        size++;
-    }
-
-    private void handlePrevNode(Node newNode, int index) {
         if (index == 0) {
+            var newNode = new Node(null, i, nodeShiftingForward);
+            newNode.next = nodeShiftingForward;
             first = newNode;
         }
         else {
+            var newNode = new Node(nodeShiftingForward.prev, i, nodeShiftingForward);
+            nodeShiftingForward.prev = newNode;
             var prevNode = getNode(index - 1);
             prevNode.next = newNode;
         }
+        size++;
     }
 
     @Override
@@ -60,13 +59,48 @@ public class MyLinkedList implements List{
 
     @Override
     public void remove(int index) {
+        if (index == 0) {
+            removeFirst();
+        } else if (index == size - 1) {
+            removeLast();
+        } else {
+            removeNth(index);
+        }
+        size--;
+    }
 
+    private void removeNth(int index) {
+        handleOutOfBounds(index, size);
+        var node = getNode(index);
+        var prevNode = node.prev;
+        var nextNode = node.next;
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+    }
+
+    private void removeLast() {
+        var lastNode = last;
+        last = lastNode.prev;
+        last.next = null;
+    }
+
+    private void removeFirst() {
+        var firstNode = first;
+        first = firstNode.next;
+        first.prev = null;
     }
 
     @Override
     public int get(int index) {
+        handleOutOfBounds(index, size);
         var node = getNode(index);
         return node.item;
+    }
+
+    private void handleOutOfBounds(int index, int size) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("[Index: "+index+", Range: "+(size - 1)+"]");
+        }
     }
 
     private Node getNode(int index) {

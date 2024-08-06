@@ -26,24 +26,19 @@ public class MyLinkedListTest {
 
     @Test
     void addsTwoItems() {
-        linkedList.add(0);
-        linkedList.add(1);
+        addXTimes(2);
         assertEquals(1, linkedList.get(1));
     }
 
     @Test
     void addsThreeItems() {
-        linkedList.add(0);
-        linkedList.add(1);
-        linkedList.add(2);
+        addXTimes(3);
         assertEquals(2, linkedList.get(2));
     }
 
     @Test
     void addsToTheMiddle(){
-        for (int i = 0; i < 5; i++) {
-            linkedList.add(i);
-        }
+        addXTimes(10);
         assertEquals(3, linkedList.get(3));
 
         linkedList.add(20, 3);
@@ -52,16 +47,13 @@ public class MyLinkedListTest {
 
     @Test
     void addsToBeginning(){
-        for (int i = 1; i < 6; i++) {
-            linkedList.add(i);
-        }
-        assertEquals(1, linkedList.get(0));
+        addXTimes(10,0);
 
-        linkedList.add(0, 0);
-        assertEquals(0, linkedList.get(0));
-        assertEquals(1, linkedList.get(1));
-        assertEquals(2, linkedList.get(2));
-        assertEquals(3, linkedList.get(3));
+        var index = 0;
+        for (int i = 9; i >= 0; i--) {
+            assertEquals(i, linkedList.get(index));
+            index++;
+        }
     }
 
     @Test
@@ -74,35 +66,84 @@ public class MyLinkedListTest {
 
     @Test
     void sizeIncreasesWhenAddingItemsToMiddle() {
-        for (int i = 0; i < 10; i++) {
-            linkedList.add(i);
-        }
+        addXTimes(10);
         linkedList.add(20, 5);
         assertEquals(11, linkedList.size());
     }
 
-
     @Test
     void getReturnsFirstItem() {
-        for (int i = 0; i < 5; i++) {
-            linkedList.add(i);
-        }
+        addXTimes(10);
         assertEquals(0, linkedList.get(0));
     }
 
     @Test
     void getReturnsMiddleItem() {
-        for (int i = 0; i < 5; i++) {
-            linkedList.add(i);
-        }
+        addXTimes(10);
         assertEquals(2, linkedList.get(2));
     }
 
     @Test
     void getReturnsLastItem() {
-        for (int i = 0; i < 5; i++) {
-            linkedList.add(i);
-        }
+        addXTimes(10);
         assertEquals(4, linkedList.get(4));
     }
+
+    @Test
+    void removesFromMiddle() {
+        addXTimes(10);
+        assertEquals(3, linkedList.get(3));
+        linkedList.remove(3);
+        assertEquals(4, linkedList.get(3));
+    }
+
+    @Test
+    void removesFromFront() {
+        addXTimes(5);
+        linkedList.remove(0);
+        assertEquals(1, linkedList.get(0));
+    }
+
+    @Test
+    void removesFromBack() {
+        addXTimes(10);
+        assertEquals(9, linkedList.get(9));
+        linkedList.remove(9);
+        linkedList.add(15);
+        assertEquals(15, linkedList.get(9));
+    }
+
+    @Test
+    void getThrowsErrorIfOutOfBounds(){
+        addXTimes(10);
+        assertThrows(IndexOutOfBoundsException.class, () -> linkedList.get(10));
+        assertThrows(IndexOutOfBoundsException.class, () -> linkedList.get(-1));
+    }
+
+    @Test
+    void addThrowsErrorIfOutOfBounds(){
+        addXTimes(10);
+        assertThrows(IndexOutOfBoundsException.class, () -> linkedList.add(-1, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> linkedList.add(11, 11));
+    }
+
+    @Test
+    void removeThrowsErrorIfOutOfBounds(){
+        addXTimes(10);
+        assertThrows(IndexOutOfBoundsException.class, () -> linkedList.remove(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> linkedList.remove(10));
+    }
+
+    private void addXTimes(int x) {
+        for (int i = 0; i < x; i++) {
+            linkedList.add(i);
+        }
+    }
+
+    private void addXTimes(int x, int index) {
+        for (int i = 0; i < 10; i++) {
+            linkedList.add(i, index);
+        }
+    }
+
 }
