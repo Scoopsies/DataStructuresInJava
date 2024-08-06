@@ -2,19 +2,14 @@ package Test;
 
 import Main.List;
 import Main.MyArrayList;
-import Main.MyLinkedList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
     private List list;
 
     @BeforeEach
-    void setup(){
-        list = new MyArrayList();
-    }
+    void setup(){list = new MyArrayList();}
 
     @Test
     void newLinkHas0size() {

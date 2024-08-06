@@ -2,8 +2,7 @@ package Test;
 
 import Main.List;
 import Main.MyLinkedList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MyLinkedListTest {
