@@ -36,11 +36,21 @@ public class MyLinkedList implements List{
 
     @Override
     public void add(int i, int index) {
-        var prevNode = getNode(index - 1);
-        var node = getNode(index);
-        var newNode = new Node(node.prev, i, node);
-        prevNode.next = newNode;
-        node.prev = newNode;
+        var nodeShiftingForward = getNode(index);
+        var newNode = new Node(nodeShiftingForward.prev, i, nodeShiftingForward);
+        nodeShiftingForward.prev = newNode;
+        handlePrevNode(newNode, index);
+        size++;
+    }
+
+    private void handlePrevNode(Node newNode, int index) {
+        if (index == 0) {
+            first = newNode;
+        }
+        else {
+            var prevNode = getNode(index - 1);
+            prevNode.next = newNode;
+        }
     }
 
     @Override

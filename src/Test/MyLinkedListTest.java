@@ -51,7 +51,21 @@ public class MyLinkedListTest {
     }
 
     @Test
-    void sizeIncreasesWhenAddingItems() {
+    void addsToBeginning(){
+        for (int i = 1; i < 6; i++) {
+            linkedList.add(i);
+        }
+        assertEquals(1, linkedList.get(0));
+
+        linkedList.add(0, 0);
+        assertEquals(0, linkedList.get(0));
+        assertEquals(1, linkedList.get(1));
+        assertEquals(2, linkedList.get(2));
+        assertEquals(3, linkedList.get(3));
+    }
+
+    @Test
+    void sizeIncreasesWhenAddingItemsToEnd() {
         for (int i = 0; i < 10; i++) {
             linkedList.add(i);
             assertEquals(i + 1, linkedList.size());
@@ -59,11 +73,14 @@ public class MyLinkedListTest {
     }
 
     @Test
-    void sizeDecreasesWhenRemovingItems() {
+    void sizeIncreasesWhenAddingItemsToMiddle() {
         for (int i = 0; i < 10; i++) {
             linkedList.add(i);
         }
+        linkedList.add(20, 5);
+        assertEquals(11, linkedList.size());
     }
+
 
     @Test
     void getReturnsFirstItem() {
