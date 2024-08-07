@@ -23,10 +23,10 @@ public class MyLinkedList implements List{
     @Override
     public void add(int i) {
         if (first == null) {
-            addToFront(i);
+            addFirst(i);
         }
         else {
-            addToEnd(i);
+            addLast(i);
         }
         size++;
     }
@@ -36,16 +36,16 @@ public class MyLinkedList implements List{
         List.handleOutOfBounds(index, size + 1);
 
         if (index == 0) {
-            addToFront(i);
+            addFirst(i);
         } else if (index == size) {
-            addToEnd(i);
+            addLast(i);
         } else {
-            addToNth(i, index);
+            addNth(i, index);
         }
         size++;
     }
 
-    private void addToFront(int i) {
+    private void addFirst(int i) {
         var nodeShiftingForward = first;
         var newNode = new Node(null, i, nodeShiftingForward);
         newNode.next = nodeShiftingForward;
@@ -55,13 +55,13 @@ public class MyLinkedList implements List{
         }
     }
 
-    private void addToEnd(int i) {
+    private void addLast(int i) {
         Node newNode = new Node(last, i, null);
         last.next = newNode;
         last = newNode;
     }
 
-    private void addToNth(int i, int index) {
+    private void addNth(int i, int index) {
         var nodeShiftingForward = getNode(index);
         var prevNode = nodeShiftingForward.prev;
         var newNode = new Node(prevNode, i, nodeShiftingForward);
