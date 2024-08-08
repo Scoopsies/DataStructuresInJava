@@ -2,9 +2,9 @@ package SortingAlgorithms;
 
 import Main.List;
 
-public class Sort {
-
-    public static void bubbleSort(List list) {
+public class BubbleSort implements SortStrategy{
+    @Override
+    public void sort(List list) {
         int n = list.size();
         boolean isSwapped;
 
@@ -26,5 +26,4 @@ public class Sort {
             if (!isSwapped) break;
         }
     }
-
 }
