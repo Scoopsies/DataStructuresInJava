@@ -1,11 +1,11 @@
 package Main;
 
 public class MyLinkedList implements List{
-
-    public MyLinkedList() {}
     int size;
     Node first;
     Node last;
+
+    public MyLinkedList() {}
 
     private static class Node {
         Node prev;
@@ -24,8 +24,7 @@ public class MyLinkedList implements List{
     public void add(int i) {
         if (first == null) {
             addFirst(i);
-        }
-        else {
+        } else {
             addLast(i);
         }
         size++;
@@ -34,7 +33,6 @@ public class MyLinkedList implements List{
     @Override
     public void add(int i, int index) {
         List.handleOutOfBounds(index, size + 1);
-
         if (index == 0) {
             addFirst(i);
         } else if (index == size) {
@@ -48,8 +46,10 @@ public class MyLinkedList implements List{
     private void addFirst(int i) {
         var nodeShiftingForward = first;
         var newNode = new Node(null, i, nodeShiftingForward);
-        newNode.next = nodeShiftingForward;
         first = newNode;
+        if (nodeShiftingForward != null) {
+            nodeShiftingForward.prev = newNode;
+        }
         if (last == null) {
             last = first;
         }
@@ -76,6 +76,7 @@ public class MyLinkedList implements List{
 
     @Override
     public void remove(int index) {
+        List.handleOutOfBounds(index, size);
         if (index == 0) {
             removeFirst();
         } else if (index == size - 1) {
@@ -87,7 +88,6 @@ public class MyLinkedList implements List{
     }
 
     private void removeNth(int index) {
-        List.handleOutOfBounds(index, size);
         var node = getNode(index);
         var prevNode = node.prev;
         var nextNode = node.next;
