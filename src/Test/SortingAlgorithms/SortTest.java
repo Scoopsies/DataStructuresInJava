@@ -1,34 +1,31 @@
-package Test;
+package Test.SortingAlgorithms;
 
 import Main.List;
 import Main.MyArrayList;
-import SortingAlgorithms.Sort;
-import org.junit.jupiter.api.*;
+import SortingAlgorithms.SortingContext;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BubbleSortTest {
-    private List controlList;
-    private List testList;
+public abstract class SortTest {
+    protected List controlList;
+    protected List testList;
+    protected SortingContext sort;
 
-    @BeforeEach
-    void setup() {
-        controlList = new MyArrayList();
-        testList = new MyArrayList();
-    }
+    abstract void setup();
 
     @Test
     void sortsSortedList() {
         getRange(10, controlList);
         var testedArray = new MyArrayList();
         getRange(10, testedArray);
-        Sort.bubbleSort(testedArray);
+        sort.sort(testedArray);
         assertListEquals(controlList, testedArray);
     }
 
     @Test
     void sortsEmptyList() {
-        Sort.bubbleSort(testList);
+        sort.sort(testList);
         assertListEquals(controlList, testList);
     }
 
@@ -36,22 +33,22 @@ public class BubbleSortTest {
     public void sortsSingleElement() {
         getRange(1, testList);
         getRange(1, controlList);
-        Sort.bubbleSort(testList);
+        sort.sort(testList);
         assertListEquals(controlList, testList);
     }
 
     @Test
     public void sortsReversedList() {
-        getReverseRange(5, testList);
+        getReverseRange(testList);
         getRange(5, controlList);
-        Sort.bubbleSort(testList);
+        sort.sort(testList);
         assertListEquals(controlList, testList);
     }
 
     @Test
     public void sortsListWithDuplicates() {
-        getDupedRange(10, controlList);
-        getDupedReverseRange(10, testList);
+        getDupedRange(controlList);
+        getDupedReverseRange(testList);
     }
 
     void assertListEquals(List list, List sortedList) {
@@ -67,24 +64,24 @@ public class BubbleSortTest {
         }
     }
 
-    void getDupedRange(int n, List list) {
-        for (int i = 0; i < n; i++) {
+    void getDupedRange(List list) {
+        for (int i = 0; i < 10; i++) {
             list.add(i);
             list.add(i);
         }
 
     }
 
-    void getReverseRange(int n, List list) {
-        for (int i = n - 1; i >= 0; i--) {
-            list.add(i);
+    void getReverseRange(List list) {
+        for (int i = 0; i < 5; i++) {
+            list.add(i, 0);
         }
     }
 
-    void getDupedReverseRange(int n, List list) {
-        for (int i = n - 1; i >= 0; i--) {
-            list.add(i);
-            list.add(i);
+    void getDupedReverseRange(List list) {
+        for (int i = 0; i < 10; i++) {
+            list.add(i, 0);
+            list.add(i, 0);
         }
 
     }
