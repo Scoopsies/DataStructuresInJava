@@ -9,8 +9,7 @@ public class BubbleSortLinkedTest extends SortTest{
 
     @BeforeEach
     void setup() {
-        controlList = new MyLinkedList();
-        testList = new MyLinkedList();
+        list = new MyLinkedList();
         sort = new SortingContext(new BubbleSort());
     }
 }

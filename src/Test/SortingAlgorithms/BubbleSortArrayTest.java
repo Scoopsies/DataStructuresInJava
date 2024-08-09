@@ -9,8 +9,7 @@ public class BubbleSortArrayTest extends SortTest {
 
     @BeforeEach
     void setup() {
-        controlList = new MyArrayList();
-        testList = new MyArrayList();
+        list = new MyArrayList();
         sort = new SortingContext(new BubbleSort());
     }
 }

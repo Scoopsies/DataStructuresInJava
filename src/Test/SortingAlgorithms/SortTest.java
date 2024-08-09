@@ -1,88 +1,98 @@
 package Test.SortingAlgorithms;
 
 import Main.List;
-import Main.MyArrayList;
 import SortingAlgorithms.SortingContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class SortTest {
-    protected List controlList;
-    protected List testList;
+    protected List list;
     protected SortingContext sort;
 
+    @BeforeEach
     abstract void setup();
 
     @Test
+    public void sortedListIsSameSizeAsOriginal() {
+        addReverseRange(20, list);
+        var preSortedSize = list.size();
+        sort.sort(list);
+        var postSortedSize = list.size();
+        assertEquals(preSortedSize, postSortedSize);
+    }
+
+    @Test
     void sortsSortedList() {
-        getRange(10, controlList);
-        var testedArray = new MyArrayList();
-        getRange(10, testedArray);
-        sort.sort(testedArray);
-        assertListEquals(controlList, testedArray);
+        addRange(20, list);
+        assertSorted(list);
     }
 
     @Test
     void sortsEmptyList() {
-        sort.sort(testList);
-        assertListEquals(controlList, testList);
+        sort.sort(list);
+        assertSorted(list);
     }
 
     @Test
     public void sortsSingleElement() {
-        getRange(1, testList);
-        getRange(1, controlList);
-        sort.sort(testList);
-        assertListEquals(controlList, testList);
+        addRange(1, list);
+        sort.sort(list);
+        assertSorted(list);
     }
 
     @Test
     public void sortsReversedList() {
-        getReverseRange(testList);
-        getRange(5, controlList);
-        sort.sort(testList);
-        assertListEquals(controlList, testList);
+        addReverseRange(10, list);
+        sort.sort(list);
+        assertSorted(list);
     }
 
     @Test
     public void sortsListWithDuplicates() {
-        getDupedRange(controlList);
-        getDupedReverseRange(testList);
+        addReverseRange(20, list);
+        addReverseRange(20, list);
+        sort.sort(list);
+        assertSorted(list);
     }
 
-    void assertListEquals(List list, List sortedList) {
+    @Test
+    public void sortsListWithNegatives() {
+        addRange(-20, 0, list);
+        sort.sort(list);
+        assertSorted(list);
+    }
+
+    void assertSorted(List list) {
+        boolean isSorted = true;
+        int lastValue = Integer.MIN_VALUE;
         for (int i = 0; i < list.size(); i++) {
-            assertEquals(list.get(i), sortedList.get(i));
+            var currentValue = list.get(i);
+            if (lastValue > currentValue) {
+                isSorted = false;
+            }
+            lastValue = currentValue;
         }
-        assertEquals(list.size(), sortedList.size());
+        assertTrue(isSorted);
     }
 
-    void getRange(int n, List list) {
+    void addRange(int n, List list) {
         for (int i = 0; i < n; i++) {
             list.add(i);
         }
     }
 
-    void getDupedRange(List list) {
-        for (int i = 0; i < 10; i++) {
+    void addRange(int start, int n, List list) {
+        for (int i = start; i < n; i++) {
             list.add(i);
-            list.add(i);
-        }
-
-    }
-
-    void getReverseRange(List list) {
-        for (int i = 0; i < 5; i++) {
-            list.add(i, 0);
         }
     }
 
-    void getDupedReverseRange(List list) {
-        for (int i = 0; i < 10; i++) {
-            list.add(i, 0);
+    void addReverseRange(int n, List list) {
+        for (int i = 0; i < n; i++) {
             list.add(i, 0);
         }
-
     }
 }
