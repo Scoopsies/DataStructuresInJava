@@ -1,30 +1,29 @@
 package SortingAlgorithms;
 
 import Main.List;
-import Main.MyLinkedList;
 
 public class MergeSort implements SortStrategy{
     @Override
-    public void sort(List elements) {
-        if (elements.size() < 2) {
+    public void sort(List list) {
+        if (list.size() < 2) {
             return;
         }
 
-        int middle = elements.size() / 2;
-        List left = new MyLinkedList();
-        List right = new MyLinkedList();
+        int middle = list.size() / 2;
+        List left = list.createList();
+        List right = list.createList();
 
         for (int i = 0; i < middle; i++) {
-            left.add(elements.get(i));
+            left.add(list.get(i));
         }
-        for (int i = middle; i < elements.size(); i++) {
-            right.add(elements.get(i));
+        for (int i = middle; i < list.size(); i++) {
+            right.add(list.get(i));
         }
 
         sort(left);
         sort(right);
 
-        merge(elements, left, right);
+        merge(list, left, right);
     }
 
     private void merge(List elements, List leftHalf, List rightHalf) {
