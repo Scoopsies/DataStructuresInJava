@@ -1,15 +1,15 @@
 package Test.SortingAlgorithms;
 
-import Main.MyArrayList;
+import Main.MyLinkedList;
 import SortingAlgorithms.MergeSort;
 import SortingAlgorithms.SortingContext;
 import org.junit.jupiter.api.BeforeEach;
 
-public class MergeSortArrayTest extends SortTest{
-
+public class MergeSortLinkedTest extends SortTest{
+    @Override
     @BeforeEach
     void setup() {
-        list = new MyArrayList();
+        list = new MyLinkedList();
         sort = new SortingContext(new MergeSort());
     }
 }
