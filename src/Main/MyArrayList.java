@@ -46,6 +46,11 @@ public class MyArrayList implements List{
         return array[index];
     }
 
+    @Override
+    public List createList() {
+        return new MyArrayList();
+    }
+
     private void handleMemoryAllocation() {
         if (size + 1 > memoryAllocated){
             memoryAllocated *= 2;

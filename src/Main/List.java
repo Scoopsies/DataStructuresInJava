@@ -6,6 +6,7 @@ public interface List {
     int size();
     void remove(int index);
     int get(int index);
+    List createList();
 
     static void handleOutOfBounds(int index, int size) {
         if (index >= size || index < 0) {

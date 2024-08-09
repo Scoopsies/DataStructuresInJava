@@ -114,6 +114,11 @@ public class MyLinkedList implements List{
         return node.item;
     }
 
+    @Override
+    public List createList() {
+        return new MyLinkedList();
+    }
+
     private Node getNode(int index) {
         var result = first;
         for (int i = 0; i < index; i++) {
