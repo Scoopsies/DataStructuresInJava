@@ -60,7 +60,7 @@ public abstract class SortTest {
 
     @Test
     public void sortsListWithNegatives() {
-        addRange(-20, 0, list);
+        addRandomNegatives(list);
         sort.sort(list);
         assertSorted(list);
     }
@@ -84,15 +84,16 @@ public abstract class SortTest {
         }
     }
 
-    void addRange(int start, int n, List list) {
-        for (int i = start; i < n; i++) {
-            list.add(i);
-        }
-    }
-
     void addReverseRange(int n, List list) {
         for (int i = 0; i < n; i++) {
             list.add(i, 0);
+        }
+    }
+
+    void addRandomNegatives(List list) {
+        for (int i = 0; i < 20; i++) {
+            var randomInt = (int) (Math.random() * -100);
+            list.add(randomInt);
         }
     }
 }

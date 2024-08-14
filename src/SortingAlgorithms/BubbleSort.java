@@ -13,11 +13,11 @@ public class BubbleSort implements SortStrategy{
 
             for (int j = 0; j < n - i - 1; j++) {
                 if (list.get(j) > list.get(j + 1)) {
-                    int temp = list.get(j);
+                    int highItem = list.get(j);
                     list.remove(j);
                     list.add(list.get(j), j);
                     list.remove(j + 1);
-                    list.add(temp, j + 1);
+                    list.add(highItem, j + 1);
 
                     isSwapped = true;
                 }

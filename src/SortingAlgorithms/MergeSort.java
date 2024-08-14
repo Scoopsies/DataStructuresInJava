@@ -16,13 +16,13 @@ public class MergeSort implements SortStrategy{
         for (int i = 0; i < middle; i++) {
             left.add(list.get(i));
         }
+
         for (int i = middle; i < list.size(); i++) {
             right.add(list.get(i));
         }
 
         sort(left);
         sort(right);
-
         merge(list, left, right);
     }
 
