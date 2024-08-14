@@ -120,9 +120,17 @@ public class MyLinkedList implements List{
     }
 
     private Node getNode(int index) {
-        var result = first;
-        for (int i = 0; i < index; i++) {
-            result = result.next;
+        Node result;
+        if (index < size / 2) {
+            result = first;
+            for (int i = 0; i < index; i++) {
+                result = result.next;
+            }
+        } else {
+            result = last;
+            for (int i = size - 1; i > index; i--) {
+                result = result.prev;
+            }
         }
         return result;
     }
